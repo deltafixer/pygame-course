@@ -144,7 +144,52 @@ pygamebg.wait_loop()
 
 Cela svrha ove biblioteke je da jednom linijom otvorite i jednom linijom zatvorite prozor igrice.
 
-Kroz kurs nećemo koristiti ovu biblioteku.
+Kroz kurs ćemo koristiti ovu biblioteku samo u primerima, ne i u igrici.
+
+#### Šta PygameBg automatizuje
+
+```python
+# rečju 'as' definišemo tzv. alias za ono što importujemo
+# na ovaj način u kodu možemo kucati 'pg' umesto punog imena 'pygame'
+# što ubrzava naš rad
+import pygame as pg
+
+######################### POČETAK PROGRAMA #########################
+# inicijalizacija pygame biblioteke, obavezno!!!
+pg.init()
+
+# postavljanje naslova prozora
+pg.display.set_caption("Pygame")
+
+# nije loše odvajati konstante u posebne objekte
+# na taj način ih možemo koristiti na više mesta u kodu
+(width, length) = (1024, 768)
+
+# otvaranje prozora
+window = pg.display.set_mode((width, length))
+
+######################### VAŠ PROIZVOLJNI KOD #########################
+
+# praksa je bojiti pozadinu prozora na početku
+# ova linija nije neophodna
+window.fill(pg.Color("white"))
+
+######################### KRAJ PROGRAMA #########################
+
+# neophodno je ažurirati prikaz kako bi se nacrtali elementi
+# kasnije ćemo naučiti da je ovo jedan od najbitnijih koraka
+pg.display.update()
+
+# čekanje od 2 sekunde tj. 2000 milisekundi kako se prozor ne bi odmah ugasio
+pg.time.wait(5000)
+
+# isključivanje pygame biblioteke, obavezno!!!
+pg.quit()
+```
+
+Jasno je da korišćenjem PygameBg biblioteke olakšavate svoj posao, ali ujedno i nemate potpunu kontrolu nad svojom igricom.
+
+Važno je (i veoma korisno) poznavati ove osnove pygame-a. 
 
 ---
 
@@ -158,3 +203,172 @@ Koordinatni sistem u pygame-u funkcioniše na sledeći način:
 * Negativne koordinate ne postoje
 
 !['Coord system'](./images/coord_system.png)
+
+---
+
+## Sistem boja u pygame-u
+
+Boje u pygame-u koristimo pozivom `pygame.Color` objekta.
+
+Dostupno je nekoliko načina zadavanja boja ovom objetku.
+
+1. Prosleđivanjem naziva boje u vidu string-a. Npr. `pygame.Color('blue')`. Neke od predefinisanih boja u pygame-u:
+
+     * white
+     * blue
+     * green
+     * red
+     * black
+     * orange
+     * yellow
+     * marroon
+     * lime
+     * pink
+     * purple
+     * gray
+     * magenta
+     * brown
+     * ...
+
+1. Zadavanjem RGB/RGBA vrednosti. Npr. `pygame.Color(255, 255, 0)` je 
+   žuta boja, dok je `pygame.Color(255, 255, 0, 0.5)` bledo-žuta boja, tačno na sredini između transparentne i pune žute.
+
+---
+
+## Crtanje duži
+
+Duž AB se u pygame-u crta pozivom funkcije
+
+```python
+pygame.draw.line(prozor, boja, temeA, temeB, debljina)
+```
+
+U pygame-u možete imati više prozora u istoj igrici, iz tog razloga je neophodno proslediti `prozor` kao prvi parametar ovoj funkciji.
+
+***Vaš zadatak je da se poigrate ovom funkcijom i nacrtate prvo slovo Vašeg imena. Ukoliko slovo ima obline, i nije ga moguće nacrtati samo dužima, izaberite slovo koje ispunjava taj uslov i njega nacrtajte.***
+
+_Naše rešenje možete naći u `examples` folderu ovog časa_
+
+![letter_e](images/letter_e.png)
+
+---
+
+## Crtanje oblika
+
+### Krug
+
+```python
+pygame.draw.circle(prozor, boja, koordinateCentra, poluprečnik)
+```
+
+### Kvadrat/pravougaonik
+
+```python
+pygame.draw.rect(prozor, boja, gornjeLevoTemeSirinaVisina, debljinaOkvira)
+# gornjeLevoTemeSirinaVisina je uređena četvorka
+# npr. (100, 100, 50, 30) će definisati pravougaonik
+# čije je gornje levo teme u tački (100, 100)
+# širine 50px i visine 30px
+
+# debljinaOkvira je opciona, ukoliko se ne prosledi, jednaka je nuli
+```
+
+### Elipsa
+
+```python
+pygame.draw.ellipse(prozor, boja, gornjeLevoTemeSirinaVisina, debljinaOkvira)
+# gornjeLevoTemeSirinaVisina je uređena četvorka
+# npr. (100, 100, 50, 30) će definisati pravougaonik
+# koji opisuje elipsu
+# čije je gornje levo teme u tački (100, 100)
+# širine 50px i visine 30px
+
+# debljinaOkvira je opciona, ukoliko se ne prosledi, jednaka je nuli
+```
+
+### Mnogougao (poligon)
+
+```python
+pygame.draw.polygon(prozor, boja, listaTemena, debljinaOkvira)
+
+# listaTemena je lista uređenih parova tačaka
+# npr. listaTemena = [(50, 300), (50, 150), (150, 50), (250, 150), (250, 300)]
+
+# debljinaOkvira je opciona, ukoliko se ne prosledi, jednaka je nuli
+```
+
+### Luk
+
+```python
+pygame.draw.arc(prozor, boja, gornjeLevoTemeSirinaVisina, odUgao, doUgao, debljina)
+
+# luk možemo gledati kao isečak elipse
+```
+
+Primer lukova:
+
+```python
+# import math na početku programa
+
+pygame.draw.arc(window, pygame.Color('black'), [80, 10, 250, 200], math.pi/2, math.pi, 2)
+pygame.draw.arc(window, pygame.Color('black'), [80, 10, 250, 200], 0, math.pi/2, 2)
+pygame.draw.arc(window, pygame.Color('black'), [80, 10, 250, 200], 3*math.pi/2, 2*math.pi, 2)
+pygame.draw.arc(window, pygame.Color('black'), [80, 10, 250, 200], math.pi, 3*math.pi/2, 2)
+
+# dobićemo punu elipsu čije je gornje levo teme
+# pravougaonika koji je okružuje
+# u tački (80, 100)
+```
+
+--- 
+
+## Prikaz slika
+
+```python
+# u ovom slučaju bi slika 'image.png'
+# bila u istom direktorijumu kao i fajl sa kodom
+# u suprotnom, neophodno je proslediti tačnu putanju do slike
+image = pg.image.load("image.png")
+
+# prikaz slike u gornjem levom uglu prozora
+window.blit(image, (0, 0))
+```
+
+Način iznad neće promeniti veličinu slike.
+
+Ukoliko želite da manipulišete i njenom veličinom, pygame ima funkciju:
+
+```python
+# skalira prosleđenu sliku u prosleđene dimenzije
+image = pygame.transform.scale(image, (width, height))
+```
+
+---
+
+## Prikaz teksta
+
+```python
+font = pygame.font.SysFont("Open Sans", 14)
+
+# slova se 'stavljaju na podlogu'
+# drugi parametar je uključivanje antialiasing-a
+textSurface = font.render("Zdravo!", True, pygame.Color("black"))
+
+# dodaje se kao i slika
+prozor.blit(textSurface, (0, 0))
+```
+
+---
+
+
+***Vaš zadatak je da, pomoću svega što ste naučili na ovom času, nacrtate Čiča Glišu sa pozadinskom slikom po želji i potpišete se na dnu.***
+
+
+
+
+
+
+
+
+
+
