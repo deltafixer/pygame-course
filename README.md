@@ -15,7 +15,10 @@ Svaku od faza čini nekoliko časova koje možete smatrati ekvivalentima školsk
 - Kako funkcioniše sistem boja
 - Kako se crtaju osnovni (i napredniji) oblici
 - Kako se prikazuju slike i tekst
-- Koje su najbolje prakse za manipulaciju koordinatama
+- Kako centrirati objekte u prozoru
+- Apsolutne i relativne koordinate
+- Iscrtavanje objekata pomoću petlje u pygame-u
+- Grananja u pygame-u
 - Kako se implementiraju animacije
 
 ### Faza 2
