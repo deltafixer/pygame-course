@@ -107,7 +107,7 @@ fallingObjectCreationRate = 1
 Kod koji dodajemo u naš projekrat za kretanje virusa izgleda ovako:
 
 ```python
-# new falling objects from top
+# dodavanje novog virusa na početak prozora
 baddieAddCounter +=1
 if baddieAddCounter == fallingObjectCreationRate:
     newFallingObject = {'rect': pygame.Rect(random.randint(0, windowWidth-fallingObjectSize), 0 - fallingObjectSize, fallingObjectSize, fallingObjectSize),
@@ -143,11 +143,11 @@ from pygame.locals import *
 
 backgroundColor = (255, 255, 255)
 
-# extract dimensions
+# izolovanje dimenzija
 (windowWidth, windowHeight) = (500, 300)
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (windowWidth, windowHeight))
 
 playerMoveRate = 5
@@ -156,27 +156,26 @@ def terminate():
     pygame.quit()
     sys.exit()
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
-# set window specs
+# podešavanja prozora
 windowSurface = pygame.display.set_mode((windowWidth, windowHeight))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 pygame.mouse.set_visible(False)
 
-# player character
+# slika junaka
 playerImage = pygame.image.load('neo.png')
 playerDimensions = (30, 70)
 playerImage = pygame.transform.scale(playerImage, playerDimensions)
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
 
-# set up player rect position
+# podešavanje pozicije pravougaonika koji okružuje junaka
 playerRect.topleft = (int(windowWidth / 2) - int(playerDimensions[0] / 2), windowHeight - playerDimensions[1])
 
-# falling object
+# padajući objekti (virusi)
 fallingObjectImage = pygame.image.load('object.png')
 fallingObjectDimensions = (96, 80)
 fallingObjectImage = pygame.transform.scale(fallingObjectImage, fallingObjectDimensions)
@@ -184,7 +183,7 @@ fallingObjectRect = fallingObjectImage.get_rect()
 
 pygame.display.update()
 
-#constant
+# konstante
 fallingObjectSize = 30
 fallingObjectMinSpeed = 1
 fallingObjectMaxSpeed = 8
@@ -202,19 +201,19 @@ while True:
                 terminate()
 
             if event.type == KEYDOWN:
-                # release a keyboard button
+                # pritisnuto dugme a
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = True
 
-                # release d keyboard button
+                # pritisnuto dugme d
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = True
 
-                # release w keyboard button
+                # pritisnuto dugme w
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = True
 
-                # release s keyboard button
+                # pritisnuto dugme s
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = True
 
@@ -237,7 +236,7 @@ while True:
             if event.type == MOUSEMOTION:
                 playerRect.move_ip(event.pos[0] - playerRect.centerx, event.pos[1] - playerRect.centery)
 
-         # new falling objects from top
+        # dodavanje novog virusa na početak prozora
         baddieAddCounter +=1
         if baddieAddCounter == fallingObjectCreationRate:
             baddieAddCounter = 0
@@ -249,7 +248,7 @@ while True:
             fallingObjects.append(newFallingObject)
 
 
-        # player movement
+        # kretanje junaka
         if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
         if moveRight and playerRect.right < windowWidth:
@@ -261,14 +260,14 @@ while True:
 
         pygame.mouse.set_pos(playerRect.centerx, playerRect.centery)
 
-        # add background
+        # dodavanje pozadine
         windowSurface.blit(background, (0, 0))
         
         for i in range(3):
             fallingObjectRect.topleft = (int(windowWidth / 2) + (i - 1) * fallingObjectDimensions[0]  - int(fallingObjectDimensions[0] / 2), int(windowHeight / 2) - fallingObjectDimensions[1])
             windowSurface.blit(fallingObjectImage, fallingObjectRect)
 
-        # add character
+        # dodavanje junaka
         windowSurface.blit(playerImage, playerRect)
 
         pygame.display.update()
@@ -282,7 +281,7 @@ Našu ```for``` petlju za iscrtavanje likova ćemo zameniti ```for``` petljom ko
 Za to ćemo koristiti sledeći kod:
 
 ```python
-# draw falling objects
+# dodavanje padajućih junaka(virusa)
 for b in fallingObjects:
     windowSurface.blit(b['surface'], b['rect'])
             
@@ -293,7 +292,7 @@ for b in fallingObjects:
 Međutim dodavanje naših rečnika u listu virusa i iscrtavanje nije dovoljno da bi se naši virusi pokrenuli, moramo dodati i sledeći kod:
 
 ```python
-# falling objects movement
+# kretanje padajućih junaka(virusa)
 for b in fallingObjects:
     b['rect'].move_ip(0, b['speed'])
             
@@ -304,7 +303,7 @@ for b in fallingObjects:
 Dodaćemo i deo koda u kojim brišemo virus koji dođe do kraja prozora:
 
 ```python
- # delete fallen objects
+ # brisanje padajućih junaka(virusa)
 for b in fallingObjects[:]:
     if b['rect'].top > windowHeight:
         fallingObjects.remove(b)
@@ -318,11 +317,11 @@ from pygame.locals import *
 
 backgroundColor = (255, 255, 255)
 
-# extract dimensions
+# izolovanje dimenzija
 (windowWidth, windowHeight) = (500, 300)
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (windowWidth, windowHeight))
 
 playerMoveRate = 5
@@ -331,27 +330,26 @@ def terminate():
     pygame.quit()
     sys.exit()
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
-# set window specs
+# podešavanja prozora
 windowSurface = pygame.display.set_mode((windowWidth, windowHeight))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 pygame.mouse.set_visible(False)
 
-# player character
+# slika junaka
 playerImage = pygame.image.load('neo.png')
 playerDimensions = (30, 70)
 playerImage = pygame.transform.scale(playerImage, playerDimensions)
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
 
-# set up player rect position
+# podešavanje pozicije pravougaonika koji okružuje junaka
 playerRect.topleft = (int(windowWidth / 2) - int(playerDimensions[0] / 2), windowHeight - playerDimensions[1])
 
-# falling object
+# padajući objekti (virusi)
 fallingObjectImage = pygame.image.load('object.png')
 fallingObjectDimensions = (96, 80)
 fallingObjectImage = pygame.transform.scale(fallingObjectImage, fallingObjectDimensions)
@@ -359,7 +357,7 @@ fallingObjectRect = fallingObjectImage.get_rect()
 
 pygame.display.update()
 
-#constant
+# konstante
 fallingObjectSize = 30
 fallingObjectMinSpeed = 1
 fallingObjectMaxSpeed = 8
@@ -380,19 +378,19 @@ while True:
                 terminate()
 
             if event.type == KEYDOWN:
-                # release a keyboard button
+                # pritisnuto dugme a
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = True
 
-                # release d keyboard button
+                # pritisnuto dugme d
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = True
 
-                # release w keyboard button
+                # pritisnuto dugme w
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = True
 
-                # release s keyboard button
+                # pritisnuto dugme s
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = True
 
@@ -415,19 +413,19 @@ while True:
             if event.type == MOUSEMOTION:
                 playerRect.move_ip(event.pos[0] - playerRect.centerx, event.pos[1] - playerRect.centery)
 
-            # new falling objects from top
-            baddieAddCounter +=1
-            if baddieAddCounter == fallingObjectCreationRate:
-                baddieAddCounter = 0
-                newFallingObject = {'rect': pygame.Rect(random.randint(0, windowWidth-fallingObjectSize), 0 - fallingObjectSize, fallingObjectSize, fallingObjectSize),
+        # dodavanje novog virusa na početak prozora
+        baddieAddCounter +=1
+        if baddieAddCounter == fallingObjectCreationRate:
+            baddieAddCounter = 0
+            newFallingObject = {'rect': pygame.Rect(random.randint(0, windowWidth-fallingObjectSize), 0 - fallingObjectSize, fallingObjectSize, fallingObjectSize),
                                 'speed': random.randint(fallingObjectMinSpeed, fallingObjectMaxSpeed),
                                 'surface':pygame.transform.scale(fallingObjectImage, (fallingObjectSize, fallingObjectSize)),
                                 }
 
-                fallingObjects.append(newFallingObject)
+            fallingObjects.append(newFallingObject)
 
-        
-        # player movement
+
+        # kretanje junaka
         if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
         if moveRight and playerRect.right < windowWidth:
@@ -439,21 +437,21 @@ while True:
 
         pygame.mouse.set_pos(playerRect.centerx, playerRect.centery)
 
-        # add background
+        # dodavanje pozadine
         windowSurface.blit(background, (0, 0))
-        
-        # add character
+
+        # dodavanje junaka
         windowSurface.blit(playerImage, playerRect)
-         
-        # draw falling objects
+
+        # dodavanje padajućih junaka(virusa)
         for b in fallingObjects:
             windowSurface.blit(b['surface'], b['rect'])
 
-        # falling objects movement
+        # kretanje padajućih junaka(virusa)
         for b in fallingObjects:
             b['rect'].move_ip(0, b['speed'])
                   
-        # delete fallen objects
+        # brisanje padajućih junaka(virusa)
         for b in fallingObjects[:]:
             if b['rect'].top > windowHeight:
                 fallingObjects.remove(b)
@@ -466,7 +464,7 @@ while True:
 
 Napomena:
 
-* delovi koda ```# draw falling objects```, ```# # falling objects movement``` i ``` # delete fallen objects```, moraju ići iza ``` # add background``` i ```# add character``` inače naš kod neće raditi kako treba
+* delovi koda ```# dodavanje padajućih objekta(virusa)```, ```# # kretanje padajućih junaka(virusa) ``` i ``` # brisanje padajućihjunaka(virusa)```, moraju ići iza ``` # dodavanje pozadine``` i ```# dodavanje junaka``` inače naš kod neće raditi kako treba
 
 ---
 
@@ -487,7 +485,7 @@ def collided(playerRect, fallingObjects):
 Funckiju ćemo pozivati na kraju našeg koda:
 
 ```python
- # game over, check if new record
+ # kraj igre
         if collided(playerRect, fallingObjects):
             break      
  ```
@@ -505,16 +503,16 @@ pygame.time.wait(5000)
 Naš kod sad izgleda:
 
 ```python
-import pygame, sys, random
+ import pygame, sys, random
 from pygame.locals import *
 
 backgroundColor = (255, 255, 255)
 
-# extract dimensions
+# izolovanje dimenzija
 (windowWidth, windowHeight) = (500, 300)
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (windowWidth, windowHeight))
 
 playerMoveRate = 5
@@ -527,29 +525,28 @@ def collided(playerRect, fallingObjects):
     for b in fallingObjects:
         if playerRect.colliderect(b['rect']):
             return True
-    return False
+    return False    
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
-# set window specs
+# podešavanja prozora
 windowSurface = pygame.display.set_mode((windowWidth, windowHeight))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 pygame.mouse.set_visible(False)
 
-# player character
+# slika junaka
 playerImage = pygame.image.load('neo.png')
 playerDimensions = (30, 70)
 playerImage = pygame.transform.scale(playerImage, playerDimensions)
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
 
-# set up player rect position
+# podešavanje pozicije pravougaonika koji okružuje junaka
 playerRect.topleft = (int(windowWidth / 2) - int(playerDimensions[0] / 2), windowHeight - playerDimensions[1])
 
-# falling object
+# padajući objekti (virusi)
 fallingObjectImage = pygame.image.load('object.png')
 fallingObjectDimensions = (96, 80)
 fallingObjectImage = pygame.transform.scale(fallingObjectImage, fallingObjectDimensions)
@@ -557,7 +554,7 @@ fallingObjectRect = fallingObjectImage.get_rect()
 
 pygame.display.update()
 
-#constant
+# konstante
 fallingObjectSize = 30
 fallingObjectMinSpeed = 1
 fallingObjectMaxSpeed = 8
@@ -565,6 +562,7 @@ fallingObjectCreationRate = 6
 framesPerSecond = 100
 
 mainClock = pygame.time.Clock()
+
 while True:
     playerRect.topleft = (int(windowWidth / 2), int(windowHeight - 50))
     moveLeft = moveRight = moveUp = moveDown = False
@@ -577,19 +575,19 @@ while True:
                 terminate()
 
             if event.type == KEYDOWN:
-                # release a keyboard button
+                # pritisnuto dugme a
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = True
 
-                # release d keyboard button
+                # pritisnuto dugme d
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = True
 
-                # release w keyboard button
+                # pritisnuto dugme w
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = True
 
-                # release s keyboard button
+                # pritisnuto dugme s
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = True
 
@@ -612,7 +610,7 @@ while True:
             if event.type == MOUSEMOTION:
                 playerRect.move_ip(event.pos[0] - playerRect.centerx, event.pos[1] - playerRect.centery)
 
-        # new falling objects from top
+        # dodavanje novog virusa na početak prozora
         baddieAddCounter +=1
         if baddieAddCounter == fallingObjectCreationRate:
             baddieAddCounter = 0
@@ -621,10 +619,10 @@ while True:
                                 'surface':pygame.transform.scale(fallingObjectImage, (fallingObjectSize, fallingObjectSize)),
                                 }
 
-            fallingObjects.append(newFallingObject)    
+            fallingObjects.append(newFallingObject)
 
-        
-        # player movement
+
+        # kretanje junaka
         if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
         if moveRight and playerRect.right < windowWidth:
@@ -636,27 +634,26 @@ while True:
 
         pygame.mouse.set_pos(playerRect.centerx, playerRect.centery)
 
-        # add background
+        # dodavanje pozadine
         windowSurface.blit(background, (0, 0))
-        
-        # add character
+
+        # dodavanje junaka
         windowSurface.blit(playerImage, playerRect)
 
-        # draw falling objects
+        # dodavanje padajućih junaka(virusa)
         for b in fallingObjects:
             windowSurface.blit(b['surface'], b['rect'])
 
-        # falling objects movement
+        # kretanje padajućih junaka(virusa)
         for b in fallingObjects:
             b['rect'].move_ip(0, b['speed'])
-        
-           
-        # delete fallen objects
+                  
+        # brisanje padajućih junaka(virusa)
         for b in fallingObjects[:]:
             if b['rect'].top > windowHeight:
                 fallingObjects.remove(b)
 
-        # game over, check if new record
+        # kraj igre
         if collided(playerRect, fallingObjects):
             break
 
