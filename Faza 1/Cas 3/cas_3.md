@@ -1,5 +1,9 @@
 # Faza 1
 
+***Autor: Stefan Radovanović***
+
+---
+
 ## Čas 3
 
 Dobrodošli na treći čas!

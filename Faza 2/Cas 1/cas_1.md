@@ -1,5 +1,9 @@
 # Faza 2
 
+***Autor: Andrija Cvetković***
+
+---
+
 ## Čas 1
 
 Dobrodošli na prvi čas druge faze!
@@ -26,17 +30,17 @@ U pitanju je igrica izbegavanja padajućih objekata.
 
 - Padajući objekti: virusi
 
-- Karakter igrača: Neo (iz Matrix trilogije)
+- Junak: Neo (iz Matrix trilogije)
 
 Igrica, nakon pokretanja, prikazuje igraču uputstvo za igranje i čeka da igrač potvrdi da je spreman za igru.
 
 !['game screenshot'](./images/screen_game_2.png)
 
-Igrač kontroliše svog karaktera pomoću strelica na tastaturi, pomoću W, A, S i D tastera a ima i mogućnost kontrolisanja mišem (pomeranjem miša po prozoru se pomera i karakter).
+Igrač kontroliše svog junaka pomoću strelica na tastaturi, pomoću W, A, S i D tastera a ima i mogućnost kontrolisanja mišem (pomeranjem miša po prozoru se pomera i junak).
 
 Sa vrha prozora "padaju" objekti (virusi) različitih veličina i kreću se različitim brzinama.
 
-Igra je izgubljena onog trenutka kad karakter dodirne neki objekat. Igrica, u suprotnom, nema kraja.
+Igra je izgubljena onog trenutka kad junak dodirne neki objekat. Igrica, u suprotnom, nema kraja.
 
 !['game screenshot'](./images/screen_game_3.png)
 
@@ -69,7 +73,7 @@ Deci nije važno koliko je igrica realistična i koliko je precizna (npr. profes
 
 Deci je dovoljno da se zabavljaju a to se može postići i najjednostavnijim dizajnom.
 
-Od dizajna umnogome zavisi i težina igranja. U našem slučaju, efekat postižemo tamnom pozadinom i crnim karakterom (koga je malo teže pratiti po pozadini). U slučaju korišćenja kontrasti (npr. karakter svetle boje na tamnoj pozadini ili obratno) igrica postaje jednostavnija za igranje (videćemo primer).
+Od dizajna umnogome zavisi i težina igranja. U našem slučaju, efekat postižemo tamnom pozadinom i crnim karakterom (koga je malo teže pratiti po pozadini). U slučaju korišćenja kontrasti (npr. junak svetle boje na tamnoj pozadini ili obratno) igrica postaje jednostavnija za igranje (videćemo primer).
 
 Uz sve to, igrica i dalje može biti veoma dosadna ukoliko nema nikakve zvučne efekte. Standard je, u igricama ovakvog tipa, da postoji melodija u prozoru menija, melodija tokom igranja, kao i melodija na kraju igrice (pobednička/gubitnička).
 
@@ -115,23 +119,23 @@ Nakon ovog časa, naša igrica će izgledati ovako:
 ```python
 import pygame
 
-# extract dimensions
+# izolovanje dimenzija
 (width, height) = (1024, 768)
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (width, height))
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
-# set window specs
+# podešavanja prozora
 windowSurface = pygame.display.set_mode((width, height))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 
-# add background
+# dodavanje pozadine
 windowSurface.blit(background, (0, 0))
 
 pygame.display.update()
@@ -149,7 +153,7 @@ Dobili smo prozor dimenzija 1024x768px koji se automatski ugasi nakon 5 sekundi.
 
 Trenutno ne brinemo o načinu zatvaranja prozora i prepuštamo pygame-u da se automatski ugasi.
 
-Obratite pažnju na dimenzije prozora, možete da postavite proizvoljne dimenzije ali je pametno da to bude manje od dimenzije Vašeg ekrana. U suprotnom, ukoliko kreirate prozor slične veličine kao i ekran, imaćete poteškoće tokom pomeranja tog prozora (ovo nije fullscreen igrica!).
+Obratite pažnju na dimenzije prozora, možete da postavite proizvoljne dimenzije ali je pametno da to bude manje od dimenzije Vašeg ekrana. U suprotnom, ukoliko kreirate prozor slične veličine kao i ekran, imaćete poteškoće prilikom pomeranja tog prozora (ovo nije fullscreen igrica!).
 
 Linijom
 
@@ -161,14 +165,14 @@ smo izolovali dimenzije prozora kako bismo ih kasnije na samo jednom mestu menja
 
 ---
 
-#### Dodavanje karaktera
+#### Dodavanje junaka
 
-Ideja za dodavanje karaktera izgleda ovako:
+Kod za dodavanje junaka izgleda ovako:
 
 ```python
 playerImage = pygame.image.load('neo.png')
 playerImage = pygame.transform.scale(playerImage, (30, 70))
-# Rect((left, top), (width, height))
+# Rect((left, top), (width, height)) => objekat definisan u pygame-u
 playerRect = playerImage.get_rect()
 ```
 
@@ -198,36 +202,37 @@ windowSurface.blit(playerImage, playerRect)
 
 Na ovaj način kažemo pygame-u da želimo da, na površinu prozora, dodamo sliku na poziciju koju definiše `Rect` objekat.
 
-Dodajmo karaktera u kod:
+Dodajmo junaka u kod:
 
 ```python
 import pygame
 
-# extract dimensions
+# izolovanje dimenzija
 (width, height) = (1024, 768)
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (width, height))
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
-# set window specs
+# podešavanja prozora
 windowSurface = pygame.display.set_mode((width, height))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 
-# images
+### NOVI KOD POČETAK ###
+# slika junaka
 playerImage = pygame.image.load('neo.png')
 playerImage = pygame.transform.scale(playerImage, (30, 70))
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
+### NOVI KOD KRAJ ###
 
-# add background
+# dodavanje pozadine
 windowSurface.blit(background, (0, 0))
-# add character
+# dodavanje junaka
 windowSurface.blit(playerImage, playerRect)
 
 pygame.display.update()
@@ -241,11 +246,11 @@ Rezultat ovog koda je:
 
 !['game screenshot'](./images/game_dev_3.png)
 
-Primetimo da se karakter nalazi u gornjem levom uglu prozora, zašto?
+Primetimo da se junak nalazi u gornjem levom uglu prozora, zašto?
 
 Podrazumevani par koordinata gornjeg levog ugla `get_rect()` funkcije je (0, 0).
 
-Promenimo ih kako bi nam se karakter na početku igrice nalazio na samom dnu prozora, u sredini po horizontali.
+Promenimo ih kako bi nam se junak na početku igrice nalazio na samom dnu prozora, u sredini po horizontali.
 
 ```python
 playerRect.topleft = (int(width / 2), height - 70)
@@ -254,12 +259,12 @@ playerRect.topleft = (int(width / 2), height - 70)
 Pristupimo paru koordinata gornjeg levog ugla `Rect` objekta i dodelimo mu vrednosti:
 
 - x = polovina širine prozora 
-- y = visina prozora - visina karaktera
+- y = visina prozora - visina junaka
 
 Možemo i da cepidlačimo:
 
-- x = polovina širine prozora - polovina širine karaktera (pravi centar horizontale)
-- y = visina prozora - visina karaktera
+- x = polovina širine prozora - polovina širine junaka (pravi centar horizontale)
+- y = visina prozora - visina junaka
 
 
 Kod sada izgleda ovako:
@@ -267,34 +272,35 @@ Kod sada izgleda ovako:
 ```python
 import pygame
 
-# extract dimensions
+# izolovanje dimenzija
 (width, height) = (1024, 768)
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (width, height))
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
-# set window specs
+# podešavanja prozora
 windowSurface = pygame.display.set_mode((width, height))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 
-# images
+# slika junaka
 playerImage = pygame.image.load('neo.png')
 playerImage = pygame.transform.scale(playerImage, (30, 70))
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
 
-# set up rect position
+### NOVI KOD POČETAK ###
+# podešavanje pozicije pravougaonika koji okružuje junaka
 playerRect.topleft = (int(width / 2) - int(30 / 2), height - 70)
+### NOVI KOD KRAJ ###
 
-# add background
+# dodavanje pozadine
 windowSurface.blit(background, (0, 0))
-# add character
+# dodavanje junaka
 windowSurface.blit(playerImage, playerRect)
 
 pygame.display.update()
@@ -317,14 +323,14 @@ Pre nego što nastavimo, primetimo grešku u poštovanju principa programiranja.
 ```python
 playerImage = pygame.transform.scale(playerImage, (30, 70))
 
-###
+...
 
 playerRect.topleft = (int(width / 2) - 30 / 2, height - 70)
 ```
 
-Ukoliko bismo, iz ma kog razloga, hteli da promenimo dimenziju karaktera, morali bismo na oba mesta da menjamo brojeve. Ovo se lako previdi.
+Ukoliko bismo, iz ma kog razloga, hteli da promenimo dimenziju junaka, morali bismo na oba mesta da menjamo brojeve. Ovo se lako previdi.
 
-Izdvojimo dimenziju karaktera u promenljivu:
+Izdvojimo dimenziju junaka u promenljivu:
 
 ```python
 playerDimensions = (30, 70)
@@ -335,7 +341,7 @@ i ažurirajmo potencijalno problematičan kod:
 ```python
 playerImage = pygame.transform.scale(playerImage, playerDimensions)
 
-###
+...
 
 playerRect.topleft = (int(width / 2) - int(playerDimensions(0) / 2), height - playerDimensions(1))
 ```
@@ -347,36 +353,43 @@ Kod sada izgleda ovako:
 ```python
 import pygame
 
-# extract dimensions
+### NOVI KOD POČETAK ###
+# izolovanje dimenzija
 (windowWidth, windowHeight) = (1024, 768)
+### NOVI KOD KRAJ ###
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (windowWidth, windowHeight))
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
-# set window specs
+### NOVI KOD POČETAK ###
+# podešavanja prozora
 windowSurface = pygame.display.set_mode((windowWidth, windowHeight))
+### NOVI KOD KRAJ ###
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 
+### NOVI KOD POČETAK ###
 playerDimensions = (30, 70)
+### NOVI KOD KRAJ ###
 
-# images
+# slika junaka
 playerImage = pygame.image.load('neo.png')
 playerImage = pygame.transform.scale(playerImage, playerDimensions)
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
 
-# set up rect position
+### NOVI KOD POČETAK ###
+# podešavanje pozicije pravougaonika koji okružuje junaka
 playerRect.topleft = (int(windowWidth / 2) - (playerDimensions[0] / 2), windowHeight - playerDimensions[1])
+### NOVI KOD KRAJ ###
 
-# add background
+# dodavanje pozadine
 windowSurface.blit(background, (0, 0))
-# add character
+# dodavanje junaka
 windowSurface.blit(playerImage, playerRect)
 
 pygame.display.update()
@@ -394,7 +407,7 @@ Rezultat ovog koda je isti kao i ranije ali su dimenzije izolovane i menjaće se
 
 Sledeći zadatak je dodavanje padajućih objekata (virusa).
 
-Princip je isti kao i dodavanje karaktera iznad.
+Princip je isti kao i dodavanje junaka iznad.
 
 ```python
 fallingObjectDimensions = (96, 80)
@@ -404,9 +417,9 @@ fallingObjectImage = pygame.transform.scale(fallingObjectImage, fallingObjectDim
 fallingObjectRect = fallingObjectImage.get_rect()
 ```
 
-Sada, međutim, želimo da dodamo 3 virusa, iznad našeg karaktera, na centru ekrana, u istoj liniji horizontalno.
+Sada, međutim, želimo da dodamo 3 virusa, iznad našeg junaka, na centru ekrana, u istoj liniji horizontalno.
 
-Ideja je sledeća:
+Kod je sledeći:
 
 ```python
 for i in range(3):
@@ -419,46 +432,49 @@ Kod sada izgleda ovako:
 ```python
 import pygame
 
-# extract dimensions
+# izolovanje dimenzija
 (windowWidth, windowHeight) = (1024, 768)
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (windowWidth, windowHeight))
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
-# set window specs
+# podešavanja prozora
 windowSurface = pygame.display.set_mode((windowWidth, windowHeight))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 
-# player character
+# slika junaka
 playerDimensions = (30, 70)
 playerImage = pygame.image.load('neo.png')
 playerImage = pygame.transform.scale(playerImage, playerDimensions)
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
 
-# set up player rect position
+# podešavanje pozicije pravougaonika koji okružuje junaka
 playerRect.topleft = (int(windowWidth / 2) - int(playerDimensions[0] / 2), windowHeight - playerDimensions[1])
 
-# falling object
+### NOVI KOD POČETAK ###
+# padajući objekti (virusi)
 fallingObjectDimensions = (96, 80)
 fallingObjectImage = pygame.image.load('object.png')
 fallingObjectImage = pygame.transform.scale(fallingObjectImage, fallingObjectDimensions)
 fallingObjectRect = fallingObjectImage.get_rect()
+### NOVI KOD KRAJ ###
 
-# add background
+# dodavanje pozadine
 windowSurface.blit(background, (0, 0))
-# add character
+# dodavanje junaka
 windowSurface.blit(playerImage, playerRect)
 
+### NOVI KOD POČETAK ###
 for i in range(3):
     fallingObjectRect.topleft = (int(windowWidth / 2) + (i - 1) * fallingObjectDimensions[0]  - int(fallingObjectDimensions[0] / 2), int(windowHeight / 2) - fallingObjectDimensions[1])
     windowSurface.blit(fallingObjectImage, fallingObjectRect)
+### NOVI KOD KRAJ ###
 
 pygame.display.update()
 
@@ -512,41 +528,40 @@ def terminate():
     pygame.quit()
     sys.exit()
 
-# extract dimensions
+# izolovanje dimenzija
 (windowWidth, windowHeight) = (1024, 768)
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (windowWidth, windowHeight))
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
 # set window specs
 windowSurface = pygame.display.set_mode((windowWidth, windowHeight))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 
-# player character
+# slika junaka
 playerDimensions = (30, 70)
 playerImage = pygame.image.load('neo.png')
 playerImage = pygame.transform.scale(playerImage, playerDimensions)
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
 
-# set up player rect position
+# podešavanje pozicije pravougaonika koji okružuje junaka
 playerRect.topleft = (int(windowWidth / 2) - int(playerDimensions[0] / 2), windowHeight - playerDimensions[1])
 
-# falling object
+# padajući objekti (virusi)
 fallingObjectDimensions = (96, 80)
 fallingObjectImage = pygame.image.load('object.png')
 fallingObjectImage = pygame.transform.scale(fallingObjectImage, fallingObjectDimensions)
 fallingObjectRect = fallingObjectImage.get_rect()
 
-# add background
+# dodavanje pozadine
 windowSurface.blit(background, (0, 0))
-# add character
+# dodavanje junaka
 windowSurface.blit(playerImage, playerRect)
 
 for i in range(3):
@@ -555,13 +570,14 @@ for i in range(3):
 
 pygame.display.update()
 
+### NOVI KOD POČETAK ###
 while True:
     for event in pygame.event.get():
-        # click on X button of the window
+        # klik na X dugme prozora
         if event.type == QUIT:
             terminate()
 
-        # release ESC keyboard button
+        # otpuštanje ESC dugmeta na tastaturi (događaj nakon što kliknemo)
         if event.type == KEYUP:
             if event.key == K_ESCAPE:
                     terminate()

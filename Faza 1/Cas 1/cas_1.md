@@ -1,4 +1,9 @@
 # Faza 1
+
+***Autor: Andrija Cvetković***
+
+---
+
 ## Čas 1
 
 Dobrodošli na prvi čas!

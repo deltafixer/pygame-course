@@ -23,8 +23,14 @@ Svaku od faza čini nekoliko časova koje možete smatrati ekvivalentima školsk
 
 ### Faza 2
 
-- Osovne ideje i standardi prilikom dizajniranja pygame igrice
-- TODO: split into sub-sections
+- Specifikacije igrice koju ćemo kreirati
+- Pravila (inženjerska i dizajnerska) kreiranja igrice
+- Kako da postavite osnovu igrice
+- Kako da pomerate junaka igrice pomoću tastera na tastaturi
+- Kako da se u igrici krećete pomoću miša
+- Šta su to rečnici  
+- Kako implementirati kretanje virusa
+- Kako implementirati koliziju između junaka i virusa
 
 ### Faza 3
 
@@ -40,7 +46,6 @@ Svaku od faza čini nekoliko časova koje možete smatrati ekvivalentima školsk
 ### Faza 2
 
 - Osnovna verzija igrice
-- TODO: more details when splitted
 
 ### Faza 3
 

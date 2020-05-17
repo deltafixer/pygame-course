@@ -1,5 +1,9 @@
 # Faza 1
 
+***Autor: Đorđe Marinković***
+
+---
+
 ## Čas 2
 
 Dobrodošli na drugi čas!
