@@ -30,7 +30,7 @@ Za početak ćemo dodati kretanje pomoću W, A, S i D tastera, a nakon toga i kr
 Pre svega potrebno je odrediti koliko će se pomeriti naš junak kada mu zadamo komandu tasterom. Tako ćemo na samom početku igrice, pre inicijalizacije definisati konstante koje će se koristiti tokom cele igrice.
 
 ```python
-#constants
+#konstante
 playerMoveRate = 5
 ```
 
@@ -47,19 +47,19 @@ U `while` petlji gde smo definisali logiku za zatvaranje cele igrice, dodaćemo 
 
 ```python
 if event.type == KEYDOWN:
-    # release a keyboard button
+    # pritisnut 'a' taster na tastaturi 
     if event.key == K_LEFT or event.key == ord('a'):
         moveLeft = True
 
-    # release d keyboard button
+    # pritisnut 'd' taster na tastaturi
     if event.key == K_RIGHT or event.key == ord('d'):
         moveRight = True
     
-    # release w keyboard button
+    # pritisnut 'w' taster na tastaturi
     if event.key == K_UP or event.key == ord('w'):
         moveUp = True
     
-    # release s keyboard button
+    # pritisnut 's' taster na tastaturi
     if event.key == K_DOWN or event.key == ord('s'):
         moveDown = True
 ```
@@ -72,12 +72,19 @@ Ideja je identična kao u prethodnom delu koda samo što se proverava da li je o
 
 ```python
 if event.type == KEYUP:
+    # otpušten 'a' taster na tastaturi
     if event.key == K_LEFT or event.key == ord('a'):
         moveLeft = False
+    
+    # otpušten 'd' taster na tastaturi
     if event.key == K_RIGHT or event.key == ord('d'):
         moveRight = False
+
+    # otpušten 'w' taster na tastaturi
     if event.key == K_UP or event.key == ord('w'):
         moveUp = False
+
+    # otpušten 's' taster na tastaturi
     if event.key == K_DOWN or event.key == ord('s'):
         moveDown = False
 ```
@@ -95,7 +102,7 @@ move_ip(xkoor, ykoor)
 Tako u slučaju pritiska tastera `a` ili leve strelice imamo proveru da li je aktiviran levi pomeraj i da li nismo došli do leve ivice prozora, pa ćemo u tom slučaju imati pomeraj po x osi:
 
 ```python
-# player movement
+# pomeraj igrača
 if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
         
@@ -104,7 +111,7 @@ if moveLeft and playerRect.left > 0:
 Analogno ovom delu, imamo i za ostala 3 događaja slučajeve:
 
 ```python
-# player movement
+# pomeraj igrača
 if moveRight and playerRect.right < windowWidth:
             playerRect.move_ip(playerMoveRate, 0)
 if moveUp and playerRect.top > 0:
@@ -162,7 +169,7 @@ Ovde ćemo na osnovu koordinata pokazivača miša postaviti koordinate `playerRe
 Kako bismo (nevidljivi) pokazivač miša zadržali unutar prozora igrice, koristimo funkciju:
 
 ```python
-#keep the mouse inside
+# zadržati pokazivač miša unutar prozora
 pygame.mouse.set_pos(playerRect.centerx, playerRect.centery)
 ```
 
@@ -171,6 +178,7 @@ Time ćemo izbeći mogućnost da u toku igrice kliknemo van prozora i time igric
 Nakon svega neophodno je ažurirati displej kako bi sve izmene u ovom delu koda bile vidljive, a za to kao i do sada koristimo funkciju:
 
 ```python
+# osvežiti prikaz na displeju
 pygame.display.update()
 ```
 

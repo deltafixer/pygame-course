@@ -57,19 +57,19 @@ while True:
                 terminate()
 
             if event.type == KEYDOWN:
-                # release a keyboard button
+                # pritisnut 'a' taster na tastaturi 
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = True
 
-                # release d keyboard button
+                # pritisnut 'd' taster na tastaturi 
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = True
 
-                # release w keyboard button
+                # pritisnut 'w' taster na tastaturi 
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = True
 
-                # release s keyboard button
+                # pritisnut 's' taster na tastaturi 
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = True
 
@@ -77,15 +77,19 @@ while True:
                 if event.key == K_ESCAPE:
                     terminate()
 
+                # otpušten 'a' taster na tastaturi
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = False
 
+                # otpušten 'd' taster na tastaturi
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = False
-
+                    
+                # otpušten 'w' taster na tastaturi
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = False
 
+                # otpušten 's' taster na tastaturi
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = False
 
@@ -93,7 +97,7 @@ while True:
                 playerRect.move_ip(event.pos[0] - playerRect.centerx, event.pos[1] - playerRect.centery)
 
 
-        # player movement
+        # pomeraj igrača
         if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
         if moveRight and playerRect.right < windowWidth:
@@ -103,17 +107,17 @@ while True:
         if moveDown and playerRect.bottom < windowHeight:
             playerRect.move_ip(0, playerMoveRate)
 
-        #keep the mouse inside
+        # zadržati pokazivač miša unutar prozora
         pygame.mouse.set_pos(playerRect.centerx, playerRect.centery)
 
-        # add background
+        # dodati pozadinu
         windowSurface.blit(background, (0, 0))
         
         for i in range(3):
             fallingObjectRect.topleft = (int(windowWidth / 2) + (i - 1) * fallingObjectDimensions[0]  - int(fallingObjectDimensions[0] / 2), int(windowHeight / 2) - fallingObjectDimensions[1])
             windowSurface.blit(fallingObjectImage, fallingObjectRect)
 
-        # add character
+        # dodati igrača
         windowSurface.blit(playerImage, playerRect)
 
         pygame.display.update()
