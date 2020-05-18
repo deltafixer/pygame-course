@@ -144,8 +144,6 @@ Sada naš kod izgleda:
 import pygame, sys, random
 from pygame.locals import *
 
-backgroundColor = (255, 255, 255)
-
 # izolovanje dimenzija
 (windowWidth, windowHeight) = (500, 300)
 
@@ -316,8 +314,6 @@ Sada naš kod izgleda:
 ```python
 import pygame, sys, random
 from pygame.locals import *
-
-backgroundColor = (255, 255, 255)
 
 # izolovanje dimenzija
 (windowWidth, windowHeight) = (500, 300)
@@ -515,8 +511,6 @@ Naš kod sad izgleda:
 import pygame, sys, random
 from pygame.locals import *
 
-backgroundColor = (255, 255, 255)
-
 # izolovanje dimenzija
 (windowWidth, windowHeight) = (500, 300)
 
@@ -626,7 +620,6 @@ while True:
                                 }
 
             fallingObjects.append(newFallingObject)
-
 
         # pomeranje junaka
         if moveLeft and playerRect.left > 0:

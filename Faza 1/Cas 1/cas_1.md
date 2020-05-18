@@ -1,6 +1,6 @@
 # Faza 1
 
-***Autor: Andrija Cvetković***
+**_Autor: Andrija Cvetković_**
 
 ---
 
@@ -10,27 +10,27 @@ Dobrodošli na prvi čas!
 
 Na ovom času ćete naučiti:
 
-* Šta je pygame
-* Kako se instalira python i pygame
-* Kako se crta u pythonu!
+- Šta je pygame
+- Kako se instalira python i pygame
+- Kako se crta u pythonu!
 
 ---
 
-Pre nego što nastavite, nadam se da imate *osnovno znanje iz programiranja* i da Vam je poznata `python sintaksa`. To su minimalni zahtevi za ulazak u ovaj kurs.
+Pre nego što nastavite, nadam se da imate _osnovno znanje iz programiranja_ i da Vam je poznata `python sintaksa`. To su minimalni zahtevi za ulazak u ovaj kurs.
 
 Dakle, da pređemo na temu ovog kursa - `pygame`.
 
 Pygame je python biblioteka koja Vam omogućava da kreirate igrice.
 
-Gledano na ostale biblioteke koje postoje (i za druge programske jezike), pygame se svrstava u jedne od manjih. 
+Gledano na ostale biblioteke koje postoje (i za druge programske jezike), pygame se svrstava u jedne od manjih.
 
 **Preporučljiva je za početnike** i jedna od prednosti je činjenica da je kod koji kucate izuzetno portabilan - pygame je podržan na:
 
-* Linux
-* Windows (95, 98, ME, 2000, XP, Vista, 7, 10 
-* Windows CE, BeOS, MacOS, Mac OS X, FreeBSD, NetBSD, OpenBSD, BSD/OS, Solaris, IRIX, i QNX.
-* Delimično podržan za
-  * AmigaOS, Dreamcast, Atari, AIX, OSF/Tru64, RISC OS, SymbianOS i OS/2
+- Linux
+- Windows (95, 98, ME, 2000, XP, Vista, 7, 10
+- Windows CE, BeOS, MacOS, Mac OS X, FreeBSD, NetBSD, OpenBSD, BSD/OS, Solaris, IRIX, i QNX.
+- Delimično podržan za
+  - AmigaOS, Dreamcast, Atari, AIX, OSF/Tru64, RISC OS, SymbianOS i OS/2
 
 Lista je ogromna i ovo je jedan od glavnih razloga zašto hobisti koriste pygame biblioteku za razvoj igrica.
 
@@ -62,7 +62,7 @@ Nakon instalacije, ponovnim pozivom komande `python --version` bi trebalo da dob
 
 ```
 Python 3.8.2
-``` 
+```
 
 Broj može da varira u zavisnosti od aktuelne verzije u trenutku instaliranja.
 
@@ -101,13 +101,13 @@ pygame.time.wait(3000)
 pygame.quit()
 ```
 
-* otvorite `IDLE` 
-* odaberite karticu `File` iz trake na vrhu
-* kliknite na `New File`
-* nalepite kod u prozor koji se otvorio
-* odaberite karticu `Run` iz trake tog prozora
-* kliknite na `Run Module`
-* sačuvajte fajl na proizvoljno mesto, nije bitno kako ga imenujete
+- otvorite `IDLE`
+- odaberite karticu `File` iz trake na vrhu
+- kliknite na `New File`
+- nalepite kod u prozor koji se otvorio
+- odaberite karticu `Run` iz trake tog prozora
+- kliknite na `Run Module`
+- sačuvajte fajl na proizvoljno mesto, nije bitno kako ga imenujete
 
 Trebalo bi da dobijete:
 
@@ -194,7 +194,7 @@ pg.quit()
 
 Jasno je da korišćenjem PygameBg biblioteke olakšavate svoj posao, ali ujedno i nemate potpunu kontrolu nad svojom igricom.
 
-Važno je (i veoma korisno) poznavati ove osnove pygame-a. 
+Važno je (i veoma korisno) poznavati ove osnove pygame-a.
 
 ---
 
@@ -202,10 +202,10 @@ Važno je (i veoma korisno) poznavati ove osnove pygame-a.
 
 Koordinatni sistem u pygame-u funkcioniše na sledeći način:
 
-* Tačka (0, 0) se nalazi u gornjem levom uglu.
-* X raste udesno
-* Y raste nadole
-* Negativne koordinate ne postoje
+- Tačka (0, 0) se nalazi u gornjem levom uglu.
+- X raste udesno
+- Y raste nadole
+- Negativne koordinate ne postoje
 
 !['Coord system'](./images/coord_system.png)
 
@@ -219,23 +219,23 @@ Dostupno je nekoliko načina zadavanja boja ovom objetku.
 
 1. Prosleđivanjem naziva boje u vidu string-a. Npr. `pygame.Color('blue')`. Neke od predefinisanih boja u pygame-u:
 
-     * white
-     * blue
-     * green
-     * red
-     * black
-     * orange
-     * yellow
-     * marroon
-     * lime
-     * pink
-     * purple
-     * gray
-     * magenta
-     * brown
-     * ...
+   - white
+   - blue
+   - green
+   - red
+   - black
+   - orange
+   - yellow
+   - marroon
+   - lime
+   - pink
+   - purple
+   - gray
+   - magenta
+   - brown
+   - ...
 
-1. Zadavanjem RGB/RGBA vrednosti. Npr. `pygame.Color(255, 255, 0)` je 
+1. Zadavanjem RGB/RGBA vrednosti. Npr. `pygame.Color(255, 255, 0)` je
    žuta boja, dok je `pygame.Color(255, 255, 0, 0.5)` bledo-žuta boja, tačno na sredini između transparentne i pune žute.
 
 ---
@@ -250,7 +250,7 @@ pygame.draw.line(prozor, boja, temeA, temeB, debljina)
 
 U pygame-u možete imati više prozora u istoj igrici, iz tog razloga je neophodno proslediti `prozor` kao prvi parametar ovoj funkciji.
 
-***Vaš zadatak je da se poigrate ovom funkcijom i nacrtate prvo slovo Vašeg imena. Ukoliko slovo ima obline, i nije ga moguće nacrtati samo dužima, izaberite slovo koje ispunjava taj uslov i njega nacrtajte.***
+**_Vaš zadatak je da se poigrate ovom funkcijom i nacrtate prvo slovo Vašeg imena. Ukoliko slovo ima obline, i nije ga moguće nacrtati samo dužima, izaberite slovo koje ispunjava taj uslov i njega nacrtajte._**
 
 _Naše rešenje možete naći u `examples` folderu ovog časa_
 
@@ -325,7 +325,7 @@ pygame.draw.arc(window, pygame.Color('black'), [80, 10, 250, 200], math.pi, 3*ma
 # u tački (80, 100)
 ```
 
---- 
+---
 
 ## Prikaz slika
 
@@ -365,15 +365,4 @@ prozor.blit(textSurface, (0, 0))
 
 ---
 
-
-***Vaš zadatak je da, pomoću svega što ste naučili na ovom času, nacrtate Čiča Glišu sa pozadinskom slikom po želji i potpišete se na dnu.***
-
-
-
-
-
-
-
-
-
-
+**_Vaš zadatak je da, pomoću svega što ste naučili na ovom času, nacrtate Čiča Glišu sa pozadinskom slikom po želji i potpišete se na dnu._**
