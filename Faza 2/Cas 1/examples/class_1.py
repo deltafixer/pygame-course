@@ -5,41 +5,40 @@ def terminate():
     pygame.quit()
     sys.exit()
 
-# extract dimensions
+# izolovanje dimenzija
 (windowWidth, windowHeight) = (1024, 768)
 
 background = pygame.image.load('bg.png')
-# scale to desired dimensions
+# skaliranje na željenu dimenziju
 background = pygame.transform.scale(background, (windowWidth, windowHeight))
 
-# initialize pygame
+# inicijalizacija pygame-a
 pygame.init()
 
 # set window specs
 windowSurface = pygame.display.set_mode((windowWidth, windowHeight))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 
-# player character
+# slika junaka
 playerDimensions = (30, 70)
 playerImage = pygame.image.load('neo.png')
 playerImage = pygame.transform.scale(playerImage, playerDimensions)
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
 
-# set up player rect position
+# podešavanje pozicije pravougaonika koji okružuje junaka
 playerRect.topleft = (int(windowWidth / 2) - int(playerDimensions[0] / 2), windowHeight - playerDimensions[1])
 
-# falling object
+# padajući objekti (virusi)
 fallingObjectDimensions = (96, 80)
 fallingObjectImage = pygame.image.load('object.png')
 fallingObjectImage = pygame.transform.scale(fallingObjectImage, fallingObjectDimensions)
 fallingObjectRect = fallingObjectImage.get_rect()
 
-# add background
+# dodavanje pozadine
 windowSurface.blit(background, (0, 0))
-# add character
+# dodavanje junaka
 windowSurface.blit(playerImage, playerRect)
 
 for i in range(3):
@@ -50,9 +49,11 @@ pygame.display.update()
 
 while True:
     for event in pygame.event.get():
+        # klik na X dugme prozora
         if event.type == QUIT:
             terminate()
 
+        # otpuštanje ESC dugmeta na tastaturi (događaj nakon što kliknemo)
         if event.type == KEYUP:
             if event.key == K_ESCAPE:
                     terminate()

@@ -1,103 +1,89 @@
 import pygame, sys
 from pygame.locals import *
 
-backgroundColor = (255, 255, 255)
-
-# extract dimensions
-(windowWidth, windowHeight) = (800, 600)
-
-background = pygame.image.load('bg.png')
-# scale to desired dimensions
-background = pygame.transform.scale(background, (windowWidth, windowHeight))
-
-#constants
-playerMoveRate = 5
-
 def terminate():
     pygame.quit()
     sys.exit()
 
-# initialize pygame
+# izolovanje dimenzija
+(windowWidth, windowHeight) = (1024, 768)
+
+background = pygame.image.load('bg.png')
+# skaliranje na željenu dimenziju
+background = pygame.transform.scale(background, (windowWidth, windowHeight))
+
+# inicijalizacija pygame-a
 pygame.init()
 
 # set window specs
 windowSurface = pygame.display.set_mode((windowWidth, windowHeight))
 
-# set window title
+# postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
+
+# sakrivanje pokazivača miša
 pygame.mouse.set_visible(False)
 
-# player character
-playerImage = pygame.image.load('neo.png')
+# slika junaka
 playerDimensions = (30, 70)
+playerImage = pygame.image.load('neo.png')
 playerImage = pygame.transform.scale(playerImage, playerDimensions)
-# Rect((left, top), (width, height)) -> Rect
 playerRect = playerImage.get_rect()
 
-# set up player rect position
+# podešavanje pozicije pravougaonika koji okružuje junaka
 playerRect.topleft = (int(windowWidth / 2) - int(playerDimensions[0] / 2), windowHeight - playerDimensions[1])
 
-# falling object
-fallingObjectImage = pygame.image.load('object.png')
+# padajući objekti (virusi)
 fallingObjectDimensions = (96, 80)
+fallingObjectImage = pygame.image.load('object.png')
 fallingObjectImage = pygame.transform.scale(fallingObjectImage, fallingObjectDimensions)
 fallingObjectRect = fallingObjectImage.get_rect()
 
-#pygame.display.update()
-
-playerRect.topleft = (int(windowWidth / 2), int(windowHeight - 50))
-    
+# konstante
+playerMoveRate = 5
 
 while True:
     moveLeft = moveRight = moveUp = moveDown = False
 
     while True:
         for event in pygame.event.get():
-            if event.type == QUIT:
-                terminate()
-
+            # pritisnuto dugme na tastaturi
             if event.type == KEYDOWN:
-                # pritisnut 'a' taster na tastaturi 
+                # leva strelica ili dugme A
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = True
 
-                # pritisnut 'd' taster na tastaturi 
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = True
 
-                # pritisnut 'w' taster na tastaturi 
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = True
 
-                # pritisnut 's' taster na tastaturi 
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = True
 
+            # otpušteno dugme sa tastature
             if event.type == KEYUP:
                 if event.key == K_ESCAPE:
-                    terminate()
-
-                # otpušten 'a' taster na tastaturi
+                        terminate()
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = False
-
-                # otpušten 'd' taster na tastaturi
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = False
-                    
-                # otpušten 'w' taster na tastaturi
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = False
-
-                # otpušten 's' taster na tastaturi
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = False
 
+            # pomeraj miša
             if event.type == MOUSEMOTION:
                 playerRect.move_ip(event.pos[0] - playerRect.centerx, event.pos[1] - playerRect.centery)
 
+            # klik na X dugme prozora
+            if event.type == QUIT:
+                terminate()
 
-        # pomeraj igrača
+        # pomeranje junaka
         if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
         if moveRight and playerRect.right < windowWidth:
@@ -107,18 +93,20 @@ while True:
         if moveDown and playerRect.bottom < windowHeight:
             playerRect.move_ip(0, playerMoveRate)
 
-        # zadržati pokazivač miša unutar prozora
+        # miš prati koordinate junaka (slučaj pomeranja junaka nekim od dugmića)
         pygame.mouse.set_pos(playerRect.centerx, playerRect.centery)
 
-        # dodati pozadinu
+        # dodavanje pozadine
         windowSurface.blit(background, (0, 0))
-        
+
+        # dodavanje virusa
         for i in range(3):
             fallingObjectRect.topleft = (int(windowWidth / 2) + (i - 1) * fallingObjectDimensions[0]  - int(fallingObjectDimensions[0] / 2), int(windowHeight / 2) - fallingObjectDimensions[1])
             windowSurface.blit(fallingObjectImage, fallingObjectRect)
 
-        # dodati igrača
+        # dodavanje junaka
         windowSurface.blit(playerImage, playerRect)
 
         pygame.display.update()
 
+    pygame.display.update()

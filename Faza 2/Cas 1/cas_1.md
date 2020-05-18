@@ -1,6 +1,6 @@
 # Faza 2
 
-***Autor: Andrija Cvetković***
+**_Autor: Andrija Cvetković_**
 
 ---
 
@@ -104,7 +104,7 @@ Prevedeno:
 
 ### Kako da postavite osnovu igrice
 
-*Nastavite s radom nakon što detaljno pročitate sadržaj iznad i sigurni ste u znanje koje ste stekli nakon čitanja.*
+_Nastavite s radom nakon što detaljno pročitate sadržaj iznad i sigurni ste u znanje koje ste stekli nakon čitanja._
 
 Nakon ovog časa, naša igrica će izgledati ovako:
 
@@ -161,7 +161,7 @@ Linijom
 (width, height) = (1024, 768)
 ```
 
-smo izolovali dimenzije prozora kako bismo ih kasnije na samo jednom mestu menjali. 
+smo izolovali dimenzije prozora kako bismo ih kasnije na samo jednom mestu menjali.
 
 ---
 
@@ -186,7 +186,7 @@ playerRect = playerImage.get_rect()
 
 Ona vraća pravougaonik koji oivičuje, u našem slučaju, sliku.
 
-`Rect` objekat koji smo dobili ima dva para parametara.
+`playerRect` (objekat pygame klase `Rect`) koji smo dobili ima dva para parametara.
 
 Prvi je par koordinata gornjeg levog temena pravougaonika.
 
@@ -200,7 +200,7 @@ Sliku sada možemo dodati korišćenjem:
 windowSurface.blit(playerImage, playerRect)
 ```
 
-Na ovaj način kažemo pygame-u da želimo da, na površinu prozora, dodamo sliku na poziciju koju definiše `Rect` objekat.
+Na ovaj način kažemo pygame-u da želimo da, na površinu prozora, dodamo sliku na poziciju koju definiše objekat klase `Rect`.
 
 Dodajmo junaka u kod:
 
@@ -258,14 +258,13 @@ playerRect.topleft = (int(width / 2), height - 70)
 
 Pristupimo paru koordinata gornjeg levog ugla `Rect` objekta i dodelimo mu vrednosti:
 
-- x = polovina širine prozora 
+- x = polovina širine prozora
 - y = visina prozora - visina junaka
 
 Možemo i da cepidlačimo:
 
 - x = polovina širine prozora - polovina širine junaka (pravi centar horizontale)
 - y = visina prozora - visina junaka
-
 
 Kod sada izgleda ovako:
 
@@ -312,7 +311,7 @@ pygame.quit()
 
 Primetite da, ukoliko ne naglasite `int(30 / 2)` već samo napišete `30 / 2`, u konzoli će se ispisati upozorenje:
 
-`DeprecationWarning: an integer is required (got type float).  Implicit conversion to integers using __int__ is deprecated, and may be removed in a future version of Python.`
+`DeprecationWarning: an integer is required (got type float). Implicit conversion to integers using __int__ is deprecated, and may be removed in a future version of Python.`
 
 Rezultat ovog koda je:
 
@@ -581,6 +580,7 @@ while True:
         if event.type == KEYUP:
             if event.key == K_ESCAPE:
                     terminate()
+### NOVI KOD KRAJ ###
 ```
 
 Prozor igrice se sada gasi bilo klikom na X dugme prozora, bilo klikom na ESC dugme tastature.
