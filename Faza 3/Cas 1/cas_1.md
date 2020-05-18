@@ -591,4 +591,4 @@ if event.type == KEYUP:
 
 Igrica bi bila isuviše laka kada bi cheat-ovi mogli da se koriste bez ikakve cene. Onog trenutka kad igrač odluči da vara, rezultat mu se vraća na 0.
 
-Finalni kod izgleda ovako:
+Finalni kod možete naći u folderu `examples` ovog časa.
