@@ -28,7 +28,7 @@ Svaku od faza čini nekoliko časova koje možete smatrati ekvivalentima školsk
 - Kako da postavite osnovu igrice
 - Kako da pomerate junaka igrice pomoću tastera na tastaturi
 - Kako da se u igrici krećete pomoću miša
-- Šta su to rečnici  
+- Kako nam python rečnici pomažu u razvoju igrice
 - Kako implementirati kretanje virusa
 - Kako implementirati koliziju između junaka i virusa
 

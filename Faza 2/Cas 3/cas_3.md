@@ -1,6 +1,6 @@
 # Faza 2
 
-***Autor: Đorđe Marinković***
+**_Autor: Đorđe Marinković_**
 
 ---
 
@@ -10,13 +10,13 @@ Dobrodošli na treći čas druge faze!
 
 Na ovom času ćete naučiti:
 
-- Šta su to rečnici  
+- Kako nam python rečnici pomažu u razvoju igrice
 - Kako implementirati kretanje virusa
 - Kako implementirati koliziju između junaka i virusa
 
 ---
 
-### Rečnici 
+### Rečnici
 
 Organzaciju podataka u pygame-u možemo vršiti pomoću listi, niski, torki, skupova i rečnika.
 
@@ -30,7 +30,7 @@ ime_recnika = { 'kljuc1' : vrednost1,
                 ... }
 ```
 
-* Ključ moramo unositi pod jednostrukim(```' '```) ili  dvostrukim(```" "```) navodnicima, dok vrednost unosimo bez njih.
+- Ključ moramo unositi pod jednostrukim(`' '`) ili dvostrukim(`" "`) navodnicima, dok vrednost unosimo bez njih.
 
 Funkcionalnost rečnika ćemo najlakse razumeti na konkretnom primeru.
 
@@ -41,20 +41,21 @@ Ispisivanje vrednosti vozila na osnovu modela.
 Kod:
 
 ```python
-cene_automobila = {"bmw 320": 35990,
-                   "mercedes-benz slk": 44650,
-                   "audi Q5": 40990}
+cene_automobila = {"BMW 320": 35990,
+                   "Mercedes-Benz SLK": 44650,
+                   "Audi Q5": 40990}
 automobil = input("Unesi model automobila:")
 print(cene_automobila[automobil])
 
 ```
+
 Slika:
 
 !['IDLE screenshot'](./images/s1.png)
 
 Napomena:
 
-* Prilikom testiranja moramo voditi računa da ključ bude jedinstven i tačno naveden kao u inicijalizaciji, jer je pyton case sensitivity jezik i prepoznaje razliku između malih i velikih slova
+- Prilikom testiranja moramo voditi računa da ključ bude jedinstven i tačno naveden kao u inicijalizaciji, jer je pyton case sensitivity jezik i prepoznaje razliku između malih i velikih slova
 
 Slika:
 
@@ -64,72 +65,74 @@ Slika:
 
 ## Kretanje virusa
 
-Implementaciju kretanja virusa ćemo ostvariti pomoću ``` pygame.Rect ``` obejkta, funkcijama nad njima, listama, rečnicima i konstantana koje ćemo morati da uvedemo u naš projekat.
+Implementaciju kretanja virusa ćemo ostvariti pomoću `pygame.Rect` objekta, funkcijama nad njima, listama, rečnicima i konstantana koje ćemo morati da uvedemo u naš projekat.
 
 Funkcije:
 
-``` pygame.Rect.move_ip(x,y)```
+```python
+pygame.Rect.move_ip(x, y)
+```
 
-* funkcija pomera naš pravougaonik u prozoru
-* funkcij ima dva parametra, koordinate x i y
+- funkcija pomera naš pravougaonik u prozoru
+- funkcija ima dva parametra, koordinate x i y
 
-Liste:
+Lista:
 
-* kako naša igrica ima vise virusa koji se kreću moraćemo da uvedemo listu virusa
+Kako naša igrica ima više virusa koji se kreću moraćemo da uvedemo listu virusa
 
-``` fallingObjects = [] ```
+```python
+fallingObjects = []
+```
 
 Rečnik:
 
-* uvodimo i rečnik sa tri ključa, preko kojih ćemo pristupati našim virusima u listi
+Uvodimo i rečnik sa tri ključa, preko kojih ćemo pristupati našim virusima u listi
 
 ```python
 newFallingObject = {'rect': value,
                     'speed': value,
                     'surface':value
                     }
- ```
+```
 
 Konstante:
 
-* uvodimo konstante za minimalnu i maksimalnu brzinu jer želimo da nam se virusi kreću različitim brzinama
-* konstantu za veličinu virusa
-* konstantu koja će nam određivati brzinu kreiranj novih virusa( što veći broj stavimo za konstantu ``` fallingObjectsCreateRate ``` kreiranje novih virusa će biti sporije)
+- Uvodimo konstante za minimalnu i maksimalnu brzinu jer želimo da nam se virusi kreću različitim brzinama
+- Konstantu za veličinu virusa
+- Konstantu koja će nam određivati brzinu kreiranja novih virusa (što veći broj stavimo za konstantu `fallingObjectCreationRate` kreiranje novih virusa će biti sporije)
 
 ```python
 fallingObjectSize = 30
 fallingObjectMinSpeed = 1
 fallingObjectMaxSpeed = 8
 fallingObjectCreationRate = 1
+```
 
- ```
-
-Kod koji dodajemo u naš projekrat za kretanje virusa izgleda ovako:
+Kod koji dodajemo u naš projekat za kretanje virusa izgleda ovako:
 
 ```python
 # dodavanje novog virusa na početak prozora
-baddieAddCounter +=1
-if baddieAddCounter == fallingObjectCreationRate:
+fallingObjectCounter +=1
+if fallingObjectCounter == fallingObjectCreationRate:
     newFallingObject = {'rect': pygame.Rect(random.randint(0, windowWidth-fallingObjectSize), 0 - fallingObjectSize, fallingObjectSize, fallingObjectSize),
                         'speed': random.randint(fallingObjectMinSpeed, fallingObjectMaxSpeed),
                         'surface':pygame.transform.scale(fallingObjectImage, (fallingObjectSize, fallingObjectSize)),
                                 }
 
     fallingObjects.append(newFallingObject)
- ```
-* na početku proveramo da li je borj prolaska kroz ```while``` petlju jednak brzini kreiranja virusa ako jeste kreirano novi virus()
+```
 
- * prvo u našu listu ``` fallingObjects = [] ``` dodajemo rečnike koji sadrže tri ključa(rect, speed, sufrace)
- 
- * rect ključ će nam davati nasumičan položaj našeg lika
+Najpre, u listu `fallingObjects` dodajemo rečnike koji sadrže tri ključa (rect, speed, sufrace).
 
- * speed ključ će nam davati nasumičnu brzinu, jer ne želimo da nam se svi virusi kreću istom brzinom
+`rect` ključ će nam davati položaj našeg lika
 
- * surface ključ će nam davati veličinu samog virusa
+`speed` ključ će nam davati brzinu, koja je nasumičan broj, jer ne želimo da nam se svi virusi kreću istom brzinom
+
+`ključ` će nam davati veličinu virusa
 
 Napomena:
 
-* zbog korišćenja ``` random ``` ugrađene funkcije, moramo je uključiti(importovati) na samom počeku našeg koda ``` import random ``` u suprotnom će naša konzola prijaviti grešku.
+Zbog korišćenja `random` (ugrađene) funkcije, moramo je uključiti (importovati) na samom počeku našeg koda `import random` u suprotnom će naša konzola prijaviti grešku.
 
 Slika greške:
 
@@ -193,62 +196,60 @@ while True:
     playerRect.topleft = (int(windowWidth / 2), int(windowHeight - 50))
     moveLeft = moveRight = moveUp = moveDown = False
     fallingObjects = []
-    baddieAddCounter = 0
-    
-    while True:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                terminate()
+    fallingObjectCounter = 0
 
+  while True:
+        for event in pygame.event.get():
+            # pritisnuto dugme na tastaturi
             if event.type == KEYDOWN:
-                # pritisnuto dugme a
+                # leva strelica ili dugme A
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = True
 
-                # pritisnuto dugme d
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = True
 
-                # pritisnuto dugme w
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = True
 
-                # pritisnuto dugme s
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = True
 
+            # otpušteno dugme sa tastature
             if event.type == KEYUP:
                 if event.key == K_ESCAPE:
-                    terminate()
-
+                        terminate()
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = False
-
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = False
-
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = False
-
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = False
 
+            # pomeraj miša
             if event.type == MOUSEMOTION:
                 playerRect.move_ip(event.pos[0] - playerRect.centerx, event.pos[1] - playerRect.centery)
 
+            # klik na X dugme prozora
+            if event.type == QUIT:
+                terminate()
+
+        ### NOVI KOD POČETAK ###
         # dodavanje novog virusa na početak prozora
-        baddieAddCounter +=1
-        if baddieAddCounter == fallingObjectCreationRate:
-            baddieAddCounter = 0
+        fallingObjectCounter +=1
+        if fallingObjectCounter == fallingObjectCreationRate:
+            fallingObjectCounter = 0
             newFallingObject = {'rect': pygame.Rect(random.randint(0, windowWidth-fallingObjectSize), 0 - fallingObjectSize, fallingObjectSize, fallingObjectSize),
                                 'speed': random.randint(fallingObjectMinSpeed, fallingObjectMaxSpeed),
                                 'surface':pygame.transform.scale(fallingObjectImage, (fallingObjectSize, fallingObjectSize)),
                                 }
 
             fallingObjects.append(newFallingObject)
+        ### NOVI KOD KRAJ ###
 
-
-        # kretanje junaka
+        # pomeranje junaka
         if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
         if moveRight and playerRect.right < windowWidth:
@@ -262,7 +263,8 @@ while True:
 
         # dodavanje pozadine
         windowSurface.blit(background, (0, 0))
-        
+
+       # dodavanje virusa
         for i in range(3):
             fallingObjectRect.topleft = (int(windowWidth / 2) + (i - 1) * fallingObjectDimensions[0]  - int(fallingObjectDimensions[0] / 2), int(windowHeight / 2) - fallingObjectDimensions[1])
             windowSurface.blit(fallingObjectImage, fallingObjectRect)
@@ -271,48 +273,48 @@ while True:
         windowSurface.blit(playerImage, playerRect)
 
         pygame.display.update()
+```
 
- ```
+Zatim moramo da iscrtamo naše viruse.
 
-Zatim moramo da iscrtamo naše viruse. 
-
-Našu ```for``` petlju za iscrtavanje likova ćemo zameniti ```for``` petljom kojom ćemo prolaziti kroz listu virusa.
+Našu `for` petlju za iscrtavanje likova ćemo zameniti `for` petljom kojom ćemo prolaziti kroz listu virusa.
 
 Za to ćemo koristiti sledeći kod:
 
 ```python
 # dodavanje padajućih junaka(virusa)
-for b in fallingObjects:
-    windowSurface.blit(b['surface'], b['rect'])
-            
- ```
+for fallingObject in fallingObjects:
+    windowSurface.blit(fallingObject['surface'], fallingObject['rect'])
 
- * u ovom delu koda prolazimo kroz listu virusa i iscrtavamo svaki virus naredbom ``` windowSurface.blit()``` 
+```
+
+U ovom delu koda prolazimo kroz listu virusa i iscrtavamo svaki virus naredbom `windowSurface.blit()`
 
 Međutim dodavanje naših rečnika u listu virusa i iscrtavanje nije dovoljno da bi se naši virusi pokrenuli, moramo dodati i sledeći kod:
 
 ```python
 # kretanje padajućih junaka(virusa)
-for b in fallingObjects:
-    b['rect'].move_ip(0, b['speed'])
-            
- ```
+for fallingObject in fallingObjects:
+    fallingObject['rect'].move_ip(0, fallingObject['speed'])
 
- * u ovom delu koda prolazimo kroz našu listu virusa i za svaki virus naredbom ``` b['rect']``` uzimamo njegov trenutni položaj u prozoru, a naredbom ``` move_ip``` pomeramo do narednog položaja zadavanjem samo y kordinate jer se naš virus pomera na dole u odnosu na trenutnu položaj
+```
+
+- u ovom delu koda prolazimo kroz našu listu virusa i za svaki virus naredbom `fallingObject['rect']` uzimamo njegov trenutni položaj u prozoru, a naredbom `move_ip` pomeramo do narednog položaja zadavanjem samo y kordinate jer se naš virus pomera na dole u odnosu na trenutnu položaj
 
 Dodaćemo i deo koda u kojim brišemo virus koji dođe do kraja prozora:
 
 ```python
- # brisanje padajućih junaka(virusa)
-for b in fallingObjects[:]:
-    if b['rect'].top > windowHeight:
-        fallingObjects.remove(b)
-            
- ```
+ # brisanje padajućih objekata (virusa)
+for fallingObject in fallingObjects[:]:
+    if fallingObject['rect'].top > windowHeight:
+        fallingObjects.remove(fallingObject)
+
+```
+
 Sada naš kod izgleda:
 
 ```python
- import pygame, sys, random
+import pygame, sys, random
 from pygame.locals import *
 
 backgroundColor = (255, 255, 255)
@@ -370,53 +372,50 @@ while True:
     playerRect.topleft = (int(windowWidth / 2), int(windowHeight - 50))
     moveLeft = moveRight = moveUp = moveDown = False
     fallingObjects = []
-    baddieAddCounter = 0
-    
+    fallingObjectCounter = 0
+
     while True:
         for event in pygame.event.get():
-            if event.type == QUIT:
-                terminate()
-
+            # pritisnuto dugme na tastaturi
             if event.type == KEYDOWN:
-                # pritisnuto dugme a
+                # leva strelica ili dugme A
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = True
 
-                # pritisnuto dugme d
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = True
 
-                # pritisnuto dugme w
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = True
 
-                # pritisnuto dugme s
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = True
 
+            # otpušteno dugme sa tastature
             if event.type == KEYUP:
                 if event.key == K_ESCAPE:
-                    terminate()
-
+                        terminate()
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = False
-
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = False
-
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = False
-
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = False
 
+            # pomeraj miša
             if event.type == MOUSEMOTION:
                 playerRect.move_ip(event.pos[0] - playerRect.centerx, event.pos[1] - playerRect.centery)
 
+            # klik na X dugme prozora
+            if event.type == QUIT:
+                terminate()
+
         # dodavanje novog virusa na početak prozora
-        baddieAddCounter +=1
-        if baddieAddCounter == fallingObjectCreationRate:
-            baddieAddCounter = 0
+        fallingObjectCounter +=1
+        if fallingObjectCounter == fallingObjectCreationRate:
+            fallingObjectCounter = 0
             newFallingObject = {'rect': pygame.Rect(random.randint(0, windowWidth-fallingObjectSize), 0 - fallingObjectSize, fallingObjectSize, fallingObjectSize),
                                 'speed': random.randint(fallingObjectMinSpeed, fallingObjectMaxSpeed),
                                 'surface':pygame.transform.scale(fallingObjectImage, (fallingObjectSize, fallingObjectSize)),
@@ -424,8 +423,7 @@ while True:
 
             fallingObjects.append(newFallingObject)
 
-
-        # kretanje junaka
+        # pomeranje junaka
         if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
         if moveRight and playerRect.right < windowWidth:
@@ -443,28 +441,39 @@ while True:
         # dodavanje junaka
         windowSurface.blit(playerImage, playerRect)
 
-        # dodavanje padajućih junaka(virusa)
-        for b in fallingObjects:
-            windowSurface.blit(b['surface'], b['rect'])
+        # dodavanje padajućih objekata (virusa)
+        for fallingObject in fallingObjects:
+            windowSurface.blit(fallingObject['surface'], fallingObject['rect'])
 
-        # kretanje padajućih junaka(virusa)
-        for b in fallingObjects:
-            b['rect'].move_ip(0, b['speed'])
-                  
-        # brisanje padajućih junaka(virusa)
-        for b in fallingObjects[:]:
-            if b['rect'].top > windowHeight:
-                fallingObjects.remove(b)
+        # kretanje padajućih objekata (virusa)
+        for fallingObject in fallingObjects:
+            fallingObject['rect'].move_ip(0, fallingObject['speed'])
+
+        # brisanje padajućih objekata (virusa)
+        for fallingObject in fallingObjects[:]:
+            if fallingObject['rect'].top > windowHeight:
+                fallingObjects.remove(fallingObject)
 
         pygame.display.update()
         mainClock.tick(framesPerSecond)
-       
-    pygame.display.update()         
- ```
+
+    pygame.display.update()
+```
 
 Napomena:
 
-* delovi koda ```# dodavanje padajućih objekta(virusa)```, ```# # kretanje padajućih junaka(virusa) ``` i ``` # brisanje padajućihjunaka(virusa)```, moraju ići iza ``` # dodavanje pozadine``` i ```# dodavanje junaka``` inače naš kod neće raditi kako treba
+Delovi koda
+
+- `# dodavanje padajućih objekata (virusa)`,
+- `# kretanje padajućih junaka(virusa)` i
+- `# brisanje padajućihjunaka(virusa)`
+
+moraju ići iza
+
+- `# dodavanje pozadine` i
+- `# dodavanje junaka`
+
+inače naš kod neće raditi kako treba
 
 ---
 
@@ -473,37 +482,37 @@ Napomena:
 Koliziju likova implementiraćemo funkcijom.
 
 ```python
-def collided(playerRect, fallingObjects): 
-    for b in fallingObjects:
-        if playerRect.colliderect(b['rect']):
+def collided(playerRect, fallingObjects):
+    for fallingObject in fallingObjects:
+        if playerRect.colliderect(fallingObject['rect']):
             return True
-    return False         
- ```
+    return False
+```
 
- * u ovoj funkciji prolazimo kroz listu virusa i koristeći ugrađenu funkciju ```colliderect()``` proveravamo da li se dva pravougaonika poklapaju(tj da li se naši likovi dodiruju)
+- u ovoj funkciji prolazimo kroz listu virusa i koristeći ugrađenu funkciju `colliderect()` proveravamo da li se dva pravougaonika poklapaju (tj. da li se naši likovi dodiruju)
 
 Funckiju ćemo pozivati na kraju našeg koda:
 
 ```python
  # kraj igre
-        if collided(playerRect, fallingObjects):
-            break      
- ```
+if collided(playerRect, fallingObjects):
+    break
+```
 
- * ako su dva lika u koliziji izlazimo iz petlje i zaustavićemo našu igru na 5 sekundi
+Ako su dva lika u koliziji izlazimo iz petlje i zaustavićemo našu igru na 5 sekundi.
 
- Zaustavljanje igre na 5 sekundi ćemo ostaviriti pomoću naredbe
+Zaustavljanje igre na 5 sekundi ćemo ostvariti pomoću naredbe
 
 ```python
 pygame.time.wait(5000)
- ```
+```
 
-* kao parametar funkcije unosimo vrednost u milisekundama
+- kao parametar funkcije unosimo vrednost u milisekundama
 
 Naš kod sad izgleda:
 
 ```python
- import pygame, sys, random
+import pygame, sys, random
 from pygame.locals import *
 
 backgroundColor = (255, 255, 255)
@@ -521,11 +530,11 @@ def terminate():
     pygame.quit()
     sys.exit()
 
-def collided(playerRect, fallingObjects): 
-    for b in fallingObjects:
-        if playerRect.colliderect(b['rect']):
+def collided(playerRect, fallingObjects):
+    for fallingObject in fallingObjects:
+        if playerRect.colliderect(fallingObject['rect']):
             return True
-    return False    
+    return False
 
 # inicijalizacija pygame-a
 pygame.init()
@@ -567,54 +576,51 @@ while True:
     playerRect.topleft = (int(windowWidth / 2), int(windowHeight - 50))
     moveLeft = moveRight = moveUp = moveDown = False
     fallingObjects = []
-    baddieAddCounter = 0
-    
+    fallingObjectCounter = 0
+
     while True:
         for event in pygame.event.get():
-            if event.type == QUIT:
-                terminate()
-
+            # pritisnuto dugme na tastaturi
             if event.type == KEYDOWN:
-                # pritisnuto dugme a
+                # leva strelica ili dugme A
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = True
 
-                # pritisnuto dugme d
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = True
 
-                # pritisnuto dugme w
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = True
 
-                # pritisnuto dugme s
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = True
 
+            # otpušteno dugme sa tastature
             if event.type == KEYUP:
                 if event.key == K_ESCAPE:
-                    terminate()
-
+                        terminate()
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = False
-
                 if event.key == K_RIGHT or event.key == ord('d'):
                     moveRight = False
-
                 if event.key == K_UP or event.key == ord('w'):
                     moveUp = False
-
                 if event.key == K_DOWN or event.key == ord('s'):
                     moveDown = False
 
+            # pomeraj miša
             if event.type == MOUSEMOTION:
                 playerRect.move_ip(event.pos[0] - playerRect.centerx, event.pos[1] - playerRect.centery)
 
+            # klik na X dugme prozora
+            if event.type == QUIT:
+                terminate()
+
         # dodavanje novog virusa na početak prozora
-        baddieAddCounter +=1
-        if baddieAddCounter == fallingObjectCreationRate:
-            baddieAddCounter = 0
-            newFallingObject = {'rect': pygame.Rect(random.randint(0, windowWidth-fallingObjectSize), 0 - fallingObjectSize, fallingObjectSize, fallingObjectSize),
+        fallingObjectCounter +=1
+        if fallingObjectCounter == fallingObjectCreationRate:
+            fallingObjectCounter = 0
+            newFallingObject = {'rect': pygame.Rect(random.randint(0, windowWidth - fallingObjectSize), 0 - fallingObjectSize, fallingObjectSize, fallingObjectSize),
                                 'speed': random.randint(fallingObjectMinSpeed, fallingObjectMaxSpeed),
                                 'surface':pygame.transform.scale(fallingObjectImage, (fallingObjectSize, fallingObjectSize)),
                                 }
@@ -622,7 +628,7 @@ while True:
             fallingObjects.append(newFallingObject)
 
 
-        # kretanje junaka
+        # pomeranje junaka
         if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
         if moveRight and playerRect.right < windowWidth:
@@ -640,18 +646,18 @@ while True:
         # dodavanje junaka
         windowSurface.blit(playerImage, playerRect)
 
-        # dodavanje padajućih junaka(virusa)
-        for b in fallingObjects:
-            windowSurface.blit(b['surface'], b['rect'])
+        # dodavanje padajućih objekata (virusa)
+        for fallingObject in fallingObjects:
+            windowSurface.blit(fallingObject['surface'], fallingObject['rect'])
 
-        # kretanje padajućih junaka(virusa)
-        for b in fallingObjects:
-            b['rect'].move_ip(0, b['speed'])
-                  
-        # brisanje padajućih junaka(virusa)
-        for b in fallingObjects[:]:
-            if b['rect'].top > windowHeight:
-                fallingObjects.remove(b)
+        # kretanje padajućih objekata (virusa)
+        for fallingObject in fallingObjects:
+            fallingObject['rect'].move_ip(0, fallingObject['speed'])
+
+        # brisanje padajućih objekata (virusa)
+        for fallingObject in fallingObjects[:]:
+            if fallingObject['rect'].top > windowHeight:
+                fallingObjects.remove(fallingObject)
 
         # kraj igre
         if collided(playerRect, fallingObjects):
@@ -659,10 +665,7 @@ while True:
 
         pygame.display.update()
         mainClock.tick(framesPerSecond)
-       
 
     pygame.time.wait(5000)
     pygame.display.update()
-
- ```
- 
+```
