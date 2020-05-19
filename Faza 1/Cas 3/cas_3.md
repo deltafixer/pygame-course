@@ -1,6 +1,6 @@
 # Faza 1
 
-***Autor: Stefan Radovanović***
+**_Autor: Stefan Radovanović_**
 
 ---
 
@@ -29,17 +29,27 @@ Neka naša prva animacija bude podijum za igru u diskoteci. Iscrtaćemo mrežu k
 - odaberite karticu `File` iz trake na vrhu
 - kliknite na `New File`
 
+* Na samom početku je potrebno uvesti potrebne biblioteke za funkcionisanje naše prve animacije:
+
 ```python
 import pygame as pg
 import pygamebg
 import random
+```
 
+- Potom definišimo naš prozor sa dimenzijama i pozadinskom bojom:
+
+```python
 # inicijalizacija prozora
 (sirina, visina) = (400, 400)
 pg.init()
 prozor = pg.display.set_mode((sirina, visina))
 prozor.fill(pg.Color("white"))
+```
 
+- Sada nam je potrebna funkcija koja će vraćati nasumične boje kako bi ova animacija bila realizovana:
+
+```python
 # određivanje broja kvadrata po kolonama i njihova veličina
 broj_kvadrata = 10
 a = sirina / broj_kvadrata
@@ -47,7 +57,11 @@ a = sirina / broj_kvadrata
 # funkcija koja će generisati neku boju u RGB obliku
 def nasumicna_boja():
     return(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+```
 
+- Glavnu funkciju našeg programa ćemo nazvati crtaj i tu ćemo kreirati mrežu kvadrata pomoću već ranije obrađene funkcije iz `python` biblioteke:
+
+```python
 # funkcija koja iscrtava mrežu kvadrata nasumičnih boja
 def crtaj():
     for i in range(broj_kvadrata):
@@ -77,7 +91,8 @@ U ovom primeru ćemo prikazati šta se dešava _iza zavesa_ kad čujemo da se st
 U ovom primeru ćemo non-stop iscrtavati žuti kvadrat koji će menjati svoje pozicije za unapred zadat pomeraj i tako simulirati njegovo kretanje po prozoru programa.
 
 - Kreirajte nov fajl
-- Iskopirajte sledeći kod:
+
+- Kao i u prethodnom primeru, potrebno je uveste određene biblioteke i inicijalizovati prozor:
 
 ```python
 import pygame, sys
@@ -89,7 +104,11 @@ pygame.init()
 ekran = pygame.display.set_mode((sirina, visina))
 pygame.display.set_caption("Setajući kvadrat")
 zuta = 255,255,0
+```
 
+- Sada trebamo kreirati kvadrat koji će se neprestano kretati, pa ćemo za tu potrebu iskoristiti `while` petlju:
+
+```python
 # definisimo kvadrat i njegove pozicije
 stranica_kvadrata = 100
 debljina_linije = 0 # popunjeno skroz
@@ -133,50 +152,61 @@ Trebalo bi da dobijete:
 U sledećem primeru ćemo prikazati kako to da uradimo:
 
 - Sam početak projekta je identičan kao u prethodnim primerima
-- Nakon toga kopirajte sledeći kod:
 
-  ```python
-    import math
-    import pygame as pg
-    import pygamebg
+```python
+import math
+import pygame as pg
+import pygamebg
 
-    (sirina, visina) = (500, 300)  # otvaramo prozor
-    prozor = pygamebg.open_window(sirina, visina, "Auto i avion")
+(sirina, visina) = (500, 300)  # otvaramo prozor
+prozor = pygamebg.open_window(sirina, visina, "Auto i avion")
+```
 
-    avion_slika = pg.image.load("images/avion.png")
-    # avion se pojavljuje u gornjem levom uglu
-    (avion_x, avion_y) = (0, 0)
+- Sada je potrebno uvesti slike aviona, auta kao i podesiti njihove koordinate
 
-    auto_slika = pg.image.load("images/auto.png")
-    # auto se pojavljuje u donjem levom uglu
-    (auto_x, auto_y) = (0, visina - auto_slika.get_height())
+```python
+avion_slika = pg.image.load("images/avion.png")
+# avion se pojavljuje u gornjem levom uglu
+(avion_x, avion_y) = (0, 0)
 
-    def crtaj():
-        prozor.fill(pg.Color("white"))
-        # crtamo avion
-        prozor.blit(avion_slika, (avion_x, avion_y))
-        # crtamo auto
-        prozor.blit(auto_slika, (auto_x, auto_y))
+auto_slika = pg.image.load("images/auto.png")
+# auto se pojavljuje u donjem levom uglu
+(auto_x, auto_y) = (0, visina - auto_slika.get_height())
+```
 
-    def novi_frejm():
-        global avion_x, avion_y, auto_x, auto_y
+- Nakon čega ih treba iscrtati
 
-        # pomeramo avion
-        avion_x += 2
-        if avion_x > sirina:
-            avion_x = - avion_slika.get_width()
+```python
+def crtaj():
+    prozor.fill(pg.Color("white"))
+    # crtamo avion
+    prozor.blit(avion_slika, (avion_x, avion_y))
+    # crtamo auto
+    prozor.blit(auto_slika, (auto_x, auto_y))
+```
+
+- Sada ćemo definisati funkciju koja će pomerati avion i auto po x koordinati sve dok slike ne dođu do desne ivice nakon čega sledi ponovno iscrtavanje na levoj ivici:
+
+```python
+def novi_frejm():
+    global avion_x, avion_y, auto_x, auto_y
+
+    # pomeramo avion
+    avion_x += 2
+    if avion_x > sirina:
+        avion_x = - avion_slika.get_width()
 
         # pomeramo auto
-        auto_x += 2
-        if auto_x > sirina:
-            auto_x = - auto_slika.get_width()
+    auto_x += 2
+    if auto_x > sirina:
+        auto_x = - auto_slika.get_width()
 
-        crtaj()
+    crtaj()
 
-    pygamebg.frame_loop(100, novi_frejm)
-  ```
+pygamebg.frame_loop(100, novi_frejm)
+```
 
-  Trebalo bi da dobijete:
+Trebalo bi da dobijete:
 
 ## !['Animacija 03'](./images/animacija03.jpg)
 
