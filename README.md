@@ -35,7 +35,6 @@ Svaku od faza čini nekoliko časova koje možete smatrati ekvivalentima školsk
 ### Faza 3
 
 - Zavštetak implementacije!
-- TODO: split into sub-sections
 
 ## Šta se od Vas očekuje:
 
@@ -50,7 +49,6 @@ Svaku od faza čini nekoliko časova koje možete smatrati ekvivalentima školsk
 ### Faza 3
 
 - Kompletno implementirana igrica
-- TODO: more details when splitted
 
 # Resursi
 
