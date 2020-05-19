@@ -97,6 +97,8 @@ Kako smo ranije već definisali pomeraj junaka, ovde ćemo ga koristiti kao para
 move_ip(xkoor, ykoor)
 ```
 
+Funkcija `move_ip(xkoor, ykoor)` pomera playerRect objekat tako što x koordinatu poveća za `xkoor` vrednost, a y koordinatu poveća za `ykoor` vrednost. U slučaju da po nekoj koordinati nije potrebno pomeranje, tu ćemo kao parametar staviti 0.
+
 Tako u slučaju pritiska A dugmeta ili leve strelice imamo proveru da li je aktiviran levi pomeraj i da li nismo došli do leve ivice prozora, pa ćemo u tom slučaju imati pomeraj po x osi:
 
 ```python
@@ -117,7 +119,7 @@ if moveDown and playerRect.bottom < windowHeight:
     playerRect.move_ip(0, playerMoveRate)
 ```
 
-Ovaj deo koda dodajemo nakon `for` petlje gde smo proveravali događaje sa tastature.
+Ovaj deo koda dodajemo unutar `for` petlje gde smo proveravali događaje sa tastature.
 
 Testiranjem dosadašnjeg koda se možemo uveriti da se naš junak uspešno kreće pomoću zadatih dugmića. Time smo završili ovo poglavlje, pa nam sledi pomeranje pomoću miša.
 
@@ -127,7 +129,7 @@ Testiranjem dosadašnjeg koda se možemo uveriti da se naš junak uspešno kreć
 
 Pored pomeranja našeg junaka pomoću dugmića tastature, na ovom času ćemo naučiti kako to isto uraditi pomoću miša.
 
-Na samom početku je potrebno sakriti pokazivač miša, ne bi li smetao igranju.
+Na samom početku je potrebno sakriti pokazivač miša, da ne bi smetao pri igranju.
 
 To ćemo odraditi sledećom linijom koda:
 
@@ -205,8 +207,10 @@ windowSurface = pygame.display.set_mode((windowWidth, windowHeight))
 # postavljanje naslova prozora
 pygame.display.set_caption('Neo i virusi')
 
+### NOVI KOD POČETAK ###
 # sakrivanje pokazivača miša
 pygame.mouse.set_visible(False)
+### NOVI KOD KRAJ ###
 
 # slika junaka
 playerDimensions = (30, 70)
@@ -223,6 +227,8 @@ fallingObjectImage = pygame.image.load('object.png')
 fallingObjectImage = pygame.transform.scale(fallingObjectImage, fallingObjectDimensions)
 fallingObjectRect = fallingObjectImage.get_rect()
 
+
+### NOVI KOD POČETAK ###
 # konstante
 playerMoveRate = 5
 
@@ -262,11 +268,13 @@ while True:
             # pomeraj miša
             if event.type == MOUSEMOTION:
                 playerRect.move_ip(event.pos[0] - playerRect.centerx, event.pos[1] - playerRect.centery)
+            ### NOVI KOD KRAJ ###
 
             # klik na X dugme prozora
             if event.type == QUIT:
                 terminate()
 
+        ### NOVI KOD POČETAK ###
         # pomeranje junaka
         if moveLeft and playerRect.left > 0:
             playerRect.move_ip(-1 * playerMoveRate, 0)
@@ -279,6 +287,7 @@ while True:
 
         # miš prati koordinate junaka (slučaj pomeranja junaka nekim od dugmića)
         pygame.mouse.set_pos(playerRect.centerx, playerRect.centery)
+        ### NOVI KOD KRAJ ###
 
         # dodavanje pozadine
         windowSurface.blit(background, (0, 0))

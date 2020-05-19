@@ -313,6 +313,10 @@ Primetite da, ukoliko ne naglasite `int(30 / 2)` već samo napišete `30 / 2`, u
 
 `DeprecationWarning: an integer is required (got type float). Implicit conversion to integers using __int__ is deprecated, and may be removed in a future version of Python.`
 
+Na srpskom:
+
+`Upozorenje zastarenja koda: neophodan je ceo broj (a prosleđen realan). Implicitna konverzija pomoću __int__ je zastarela i verovatno će biti izbačena u budućoj verziji Python-a.`
+
 Rezultat ovog koda je:
 
 !['game screenshot'](./images/game_dev_4.png)

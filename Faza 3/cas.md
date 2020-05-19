@@ -4,9 +4,9 @@
 
 ---
 
-## Čas 1
+## Čas (poslednji čas kursa)
 
-Dobrodošli na prvi čas treće (poslednje) faze!
+Dobrodošli na poslednji čas ovog kursa!
 
 Na ovom času ćete naučiti:
 
@@ -44,6 +44,10 @@ fallingObjectMaxSize = 50
 ```
 
 Sada, u bloku koda u kojem postavljamo osobine padajućih objekata, dodajemo ove dve konstante.
+
+Neka promenljiva `fallingObjectRandomSize` bude nasumičan ceo broj iz intervala [fallingObjectMinSize, fallingObjectMaxSize] koja predstavlja veličinu padajućeg objekta koji se kreira.
+
+Neka `rect` ključ sada dobije nasumične celobrojne koordinate iz intervala [0, širina prozora - nova nasumična veličina padajućeg objekta] za X i 0 - nova nasumična veličina padajućeg objekta za Y, kako bi objekti padali sa samog vrha prozora igrice.
 
 ```python
 if fallingObjectCounter == fallingObjectCreationRate:
